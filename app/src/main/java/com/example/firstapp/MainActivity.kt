@@ -40,6 +40,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,174 +55,38 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.imageLoader
 import coil.request.ImageRequest
+import com.example.firstapp.ui.screen.Home
+import com.example.firstapp.ui.screen.SignUp
 import com.example.firstapp.ui.theme.FirstAppTheme
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : ComponentActivity() {
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val listChips = listOf("filter1", "filter2")
     setContent {
-      FirstAppTheme {
-        Scaffold(
-          topBar = {
-            TopAppBar(
-              title = { Text(text = "Good Morning") },
-              colors = TopAppBarDefaults.smallTopAppBarColors(
-                titleContentColor = Color.White,
-                containerColor = Color.Black,
-              ),
-              actions = {
-                Icon(
-                  painter = painterResource(id = R.drawable.ic_baseline_snowshoeing_24),
-                  contentDescription = "Lala"
-                )
-                Icon(
-                  painter = painterResource(id = R.drawable.ic_baseline_whatshot_24),
-                  contentDescription = null
-                )
-              }
-            )
-          },
-          bottomBar = {
-            NavigationBar(containerColor = Color.Black) {
-              NavigationBarItem(
-                colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-                selected = true,
-                onClick = {},
-                label = { Text(text = "Carte SD") },
-                icon = {
-                  Icon(
-                    painter = painterResource(id = R.drawable.vc_baseline_sd_card_24),
-                    contentDescription = null
-                  )
-                }
-              )
-              NavigationBarItem(selected = true, onClick = {}, icon = {})
-              NavigationBarItem(selected = true, onClick = {}, icon = {})
-            }
-          }
+      LaunchedEffect(key1 = Unit, block = {
 
-        ) {
-          Column(modifier = Modifier.padding(it)) {
-            LazyRow() {
-              items(listChips) { item ->
-                InputChip(
-                  label = { Text(text = item) },
-                  onClick = {},
-                  modifier = Modifier.padding(4.dp),
-                  selected = true,
-                )
-              }
-            }
-            for(i in 1..3) {
-              Row(
-                modifier = Modifier
-                  .padding(12.dp, 0.dp)
-                  .height(60.dp)
-              ) {
-                Card(
-                  modifier = Modifier
-                    .weight(1f)
-                    .height(50.dp),
-                  colors = CardDefaults.cardColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
-                  )
-                ) {
-                  Row(verticalAlignment = Alignment.CenterVertically) {
-                    AsyncImage(
-                      modifier = Modifier.weight(0.25f),
-                      model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
-                        .build(),
-                      contentDescription = null,
-                      contentScale = ContentScale.Crop,
-                    )
-                    Text(
-                      modifier = Modifier
-                        .weight(.7f)
-                        .padding(10.dp),
-                      text = "Hello",
-                      textAlign = TextAlign.Center
-                    )
-                  }
-                }
-                Spacer(modifier = Modifier.width(12.dp))
-                Card(
-                  modifier = Modifier
-                    .weight(1f)
-                    .height(50.dp),
-                  colors = CardDefaults.cardColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
-                  )
-                ) {
-                  Row(verticalAlignment = Alignment.CenterVertically) {
-                    AsyncImage(
-                      modifier = Modifier.weight(0.25f),
-                      model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
-                        .build(),
-                      contentDescription = null,
-                      contentScale = ContentScale.Crop,
-                    )
-                    Text(
-                      modifier = Modifier
-                        .weight(.7f)
-                        .padding(10.dp),
-                      text = "Hello",
-                      textAlign = TextAlign.Center
-                    )
-                  }
-                }
-              }
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-              AsyncImage(
-                // image en rond
-                model = ImageRequest.Builder(LocalContext.current)
-                  .data("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
-                  .build(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                  .weight(0.25f)
-                  .padding(10.dp)
-                  .size(80.dp)
-                  .clip(CircleShape)
-              )
-              Column(modifier = Modifier.weight(0.75f)) {
-                Text(
-                  text = "Titre de la musique",
-                  textAlign = TextAlign.Center
-                )
-                Text(
-                  text = "Titre de l'artiste",
-                  textAlign = TextAlign.Center,
-                  fontWeight = FontWeight.Bold
-                )
-              }
-              }
-            }
-          }
+      })
+      FirstAppTheme {
+        Home()
+      }
+
+      @Composable
+      fun Greeting(name: String, modifier: Modifier = Modifier) {
+        Text(
+          text = "Hello $name!",
+          modifier = modifier
+        )
+      }
+
+      @Composable
+      fun GreetingPreview() {
+        FirstAppTheme {
+          Greeting("Android")
         }
       }
     }
   }
-
-  @Composable
-  fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-      text = "Hello $name!",
-      modifier = modifier
-    )
-  }
-
-  @Preview(showBackground = true)
-  @Composable
-  fun GreetingPreview() {
-    FirstAppTheme {
-      Greeting("Android")
-    }
-  }
+}
