@@ -43,19 +43,16 @@ fun Search() {
   Scaffold(
     topBar = {
       TopAppBar(
-        title = { Text(text = "Good Morning") },
+        title = { Text(text = "Rechercher") },
         colors = TopAppBarDefaults.smallTopAppBarColors(
           titleContentColor = Color.White,
           containerColor = Color.Black,
         ),
         actions = {
           Icon(
-            painter = painterResource(id = R.drawable.ic_baseline_snowshoeing_24),
-            contentDescription = "Lala"
-          )
-          Icon(
-            painter = painterResource(id = R.drawable.ic_baseline_whatshot_24),
-            contentDescription = null
+            painter = painterResource(id = R.drawable.ic_baseline_photo_camera_24),
+            contentDescription = null,
+            tint = Color.White,
           )
         }
       )
@@ -64,18 +61,40 @@ fun Search() {
       NavigationBar(containerColor = Color.Black) {
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = true,
+          selected = false,
           onClick = {},
-          label = { Text(text = "Carte SD") },
+          label = { Text(text = "Accueil") },
           icon = {
             Icon(
-              painter = painterResource(id = R.drawable.vc_baseline_sd_card_24),
+              painter = painterResource(id = R.drawable.baseline_home_24),
               contentDescription = null
             )
           }
         )
-        NavigationBarItem(selected = true, onClick = {}, icon = {})
-        NavigationBarItem(selected = true, onClick = {}, icon = {})
+        NavigationBarItem(
+          colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
+          selected = true,
+          onClick = {},
+          label = { Text(text = "Rechercher") },
+          icon = {
+            Icon(
+              painter = painterResource(id = R.drawable.ic_baseline_search_24),
+              contentDescription = null
+            )
+          }
+        )
+        NavigationBarItem(
+          colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
+          selected = false,
+          onClick = {},
+          label = { Text(text = "Bibliothèque") },
+          icon = {
+            Icon(
+              painter = painterResource(id = R.drawable.ic_baseline_library_24),
+              contentDescription = null
+            )
+          }
+        )
       }
     }
 
