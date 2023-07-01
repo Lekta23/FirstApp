@@ -61,7 +61,7 @@ fun Home() {
     arrayOf("Humour", "La table et les mots", "Emission - Jean et Alain"),
     arrayOf("Art et littérature", "Le Popcorn, c'est bon", "Emission - René Honteux à jamais dans mon coeur")
   )
-  val listEcoute = arrayListOf("Passion", "Used To The Silence", "We own the night");
+  val listEcoute = arrayListOf("Roosevelt - Passion", "Used To The Silence", "We own the night");
 
   Scaffold(
     topBar = {
@@ -368,6 +368,43 @@ fun Home() {
             color = Color.White,
             fontWeight = FontWeight.Bold,
           )
+        }
+
+        LazyRow(
+          modifier = Modifier.fillMaxWidth(),
+          contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+          items(listEcoute) {item ->
+            Column(
+              modifier = Modifier
+                .fillMaxWidth()
+                .weight(0.40f)
+                .width(130.dp)
+                .aspectRatio(1f)
+                .padding(10.dp, 0.dp),
+            ) {
+              AsyncImage(
+                modifier = Modifier
+                  .weight(0.7f)
+                  .height(130.dp),
+                model = ImageRequest.Builder(LocalContext.current)
+                  .data("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
+                  .build(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+              )
+
+              Text(
+                modifier = Modifier
+                  .fillMaxWidth(),
+                color = Color.White,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                text = item,
+                softWrap = true,
+              )
+            }
+          }
         }
 
       }
