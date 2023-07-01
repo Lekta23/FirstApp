@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
 
       })
       FirstAppTheme {
-        Search()
+        Home()
       }
 
       @Composable
