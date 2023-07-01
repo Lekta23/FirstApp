@@ -1,4 +1,5 @@
 package com.example.firstapp.ui.screen
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,11 +42,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.R
+import java.lang.reflect.Array
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,9 +56,14 @@ fun Home() {
 
   val listChips = listOf("Musique", "Podcasts et émissions");
   val listAlbum = listOf("Vald, Damso, Gazo", "Damso, Gazo", "PLK, Jul, Ninho");
+  val listPodcast = listOf(
+    arrayOf("Actualité et politique", "Les actus du jours - Je ne suis pas affiché", "Emission - Hugo Décripte"),
+    arrayOf("Humour", "La table et les mots", "Emission - Jean et Alain"),
+    arrayOf("Art et littérature", "Le Popcorn, c'est bon", "Emission - René Honteux à jamais dans mon coeur")
+  )
+  val listEcoute = arrayListOf("Passion", "Used To The Silence", "We own the night");
 
   Scaffold(
-
     topBar = {
       TopAppBar(
         title = { Text(text = "Bonjour", fontWeight = FontWeight.Bold, fontSize = 30.sp) },
@@ -271,17 +280,93 @@ fun Home() {
                 color = Color.LightGray,
                 fontSize = 15.sp,
                 text = item,
-                textAlign = TextAlign.Center,
                 softWrap = true,
               )
             }
           }
         }
 
-        Row() {
+        Row(
+          modifier = Modifier.padding(0.dp, 40.dp, 0.dp, 0.dp),
+        ) {
           Text(
             text = "Les Meilleurs Podcasts",
             fontSize = 30.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+          )
+        }
+
+        LazyRow(
+          modifier = Modifier.fillMaxWidth(),
+          contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+          items(listPodcast) { array ->
+            val podcastCategory = array[0];
+            val podcastTitle = array[1];
+            val podcastCreator = array[2];
+
+            Column(
+              modifier = Modifier
+                .fillMaxWidth()
+                .width(170.dp)
+                .aspectRatio(1f)
+                .padding(0.dp, 0.dp, 20.dp, 0.dp),
+            ) {
+              AsyncImage(
+                modifier = Modifier
+                  .weight(1f)
+                  .height(150.dp)
+                  .clip(shape = RoundedCornerShape(15.dp)),
+                model = ImageRequest.Builder(LocalContext.current)
+                  .data("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
+                  .build(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+              )
+              Text(
+                modifier = Modifier
+                  .fillMaxWidth(),
+                color = Color.Green,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                text = podcastCategory,
+                softWrap = true,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+              )
+              Text(
+                modifier = Modifier
+                  .fillMaxWidth(),
+                color = Color.White,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                text = podcastTitle,
+                softWrap = true,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+              )
+              Text(
+                modifier = Modifier
+                  .fillMaxWidth(),
+                color = Color.LightGray,
+                fontSize = 15.sp,
+                text = podcastCreator,
+                softWrap = true,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+              )
+            }
+          }
+        }
+
+        Row(
+          modifier = Modifier.padding(0.dp, 40.dp, 0.dp, 0.dp),) {
+          Text(
+            text = "Ecoutés récemment",
+            fontSize = 30.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
           )
         }
 
