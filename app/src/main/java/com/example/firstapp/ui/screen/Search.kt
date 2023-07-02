@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.R
-import androidx.compose.ui.Alignment
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -121,7 +120,7 @@ fun Search() {
       color = Color.Black,
       modifier = Modifier
         .fillMaxSize()
-        .verticalScroll(state = rememberScrollState(), enabled = true),
+        .verticalScroll(state = rememberScrollState()),
     ) {
 
       Column(modifier = Modifier.padding(it)) {
@@ -207,19 +206,9 @@ fun Search() {
                 }
               }
             }
-
-
           }
-
           Spacer(modifier = Modifier.height(12.dp))
         }
-
-
-
-
-
-
-
       }
     }
   }
