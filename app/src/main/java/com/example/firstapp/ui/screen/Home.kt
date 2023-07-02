@@ -66,7 +66,12 @@ fun Home() {
   Scaffold(
     topBar = {
       TopAppBar(
-        title = { Text(text = "Bonjour", fontWeight = FontWeight.Bold, fontSize = 30.sp) },
+        title = {
+          Text(
+            text = "Bonjour",
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp
+          ) },
         colors = TopAppBarDefaults.smallTopAppBarColors(
           titleContentColor = Color.White,
           containerColor = Color.DarkGray,
