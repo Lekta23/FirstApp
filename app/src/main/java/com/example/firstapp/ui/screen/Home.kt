@@ -1,7 +1,6 @@
 package com.example.firstapp.ui.screen
-import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,7 +47,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.R
-import java.lang.reflect.Array
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

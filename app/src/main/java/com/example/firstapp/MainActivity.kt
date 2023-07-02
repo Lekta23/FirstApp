@@ -56,6 +56,7 @@ import coil.compose.AsyncImage
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.example.firstapp.ui.screen.Home
+import com.example.firstapp.ui.screen.Library
 import com.example.firstapp.ui.screen.Search
 import com.example.firstapp.ui.screen.SignUp
 import com.example.firstapp.ui.theme.FirstAppTheme
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
 
       })
       FirstAppTheme {
-        Search()
+        Library()
       }
 
       @Composable
