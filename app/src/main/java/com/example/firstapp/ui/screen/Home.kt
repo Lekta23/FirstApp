@@ -44,13 +44,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home() {
+fun Home(navController: NavController) {
 
   val listChips = listOf("Musique", "Podcasts et émissions");
   val listAlbum = listOf("Vald, Damso, Gazo", "Damso, Gazo", "PLK, Jul, Ninho");
@@ -101,8 +102,8 @@ fun Home() {
       NavigationBar(containerColor = Color.Black) {
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = true,
-          onClick = {},
+          selected = navController.currentDestination?.route == "home",
+          onClick = { navController.navigate("home") },
           label = { Text(text = "Accueil") },
           icon = {
             Icon(
@@ -113,8 +114,8 @@ fun Home() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "search",
+          onClick = { navController.navigate("search") },
           label = { Text(text = "Rechercher") },
           icon = {
             Icon(
@@ -125,8 +126,8 @@ fun Home() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "library",
+          onClick = { navController.navigate("library") },
           label = { Text(text = "Bibliothèque") },
           icon = {
             Icon(

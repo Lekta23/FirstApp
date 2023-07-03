@@ -39,13 +39,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search() {
+fun Search(navController: NavController) {
   val rechercherTextFieldValue = remember { mutableStateOf(TextFieldValue("")) }
 
   val listColor = listOf(Color(225,51,1), Color(115,88,255), Color(30,50,100), Color(234,17,95), Color(190,89,1), Color(21,136,7), Color(33,46,116), Color(39,133,106));
@@ -79,8 +80,8 @@ fun Search() {
       NavigationBar(containerColor = Color.Black) {
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "home",
+          onClick = { navController.navigate("home") },
           label = { Text(text = "Accueil") },
           icon = {
             Icon(
@@ -91,8 +92,8 @@ fun Search() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = true,
-          onClick = {},
+          selected = navController.currentDestination?.route == "search",
+          onClick = { navController.navigate("search") },
           label = { Text(text = "Rechercher") },
           icon = {
             Icon(
@@ -103,8 +104,8 @@ fun Search() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "library",
+          onClick = { navController.navigate("library") },
           label = { Text(text = "Bibliothèque") },
           icon = {
             Icon(

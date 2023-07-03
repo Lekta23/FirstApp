@@ -26,11 +26,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.firstapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Library() {
+fun Library(navController: NavController) {
 
   val listChips = listOf("Musique", "Podcasts et émissions");
 
@@ -62,8 +63,8 @@ fun Library() {
       NavigationBar(containerColor = Color.Black) {
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "home",
+          onClick = { navController.navigate("home") },
           label = { Text(text = "Accueil") },
           icon = {
             Icon(
@@ -74,8 +75,8 @@ fun Library() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = false,
-          onClick = {},
+          selected = navController.currentDestination?.route == "search",
+          onClick = { navController.navigate("search") },
           label = { Text(text = "Rechercher") },
           icon = {
             Icon(
@@ -86,8 +87,8 @@ fun Library() {
         )
         NavigationBarItem(
           colors = NavigationBarItemDefaults.colors(selectedTextColor = Color.White),
-          selected = true,
-          onClick = {},
+          selected = navController.currentDestination?.route == "library",
+          onClick = { navController.navigate("library") },
           label = { Text(text = "Bibliothèque") },
           icon = {
             Icon(
