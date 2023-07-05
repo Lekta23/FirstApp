@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       val navController = rememberNavController()
 
-      NavHost(navController, startDestination = "home") {
+      NavHost(navController, startDestination = "signUp") {
         composable("library") {
           Library(navController = navController)
         }
