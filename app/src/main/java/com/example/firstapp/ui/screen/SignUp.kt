@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -129,6 +131,7 @@ fun SignUp(navController: NavController) {
             onValueChange = {
               _passwordTextFieldValue.value = it
             },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             placeholder = { Text(text = "Mot de passe") },
             label = { Text(text = "Mot de passe") },
           )
@@ -141,42 +144,52 @@ fun SignUp(navController: NavController) {
             .fillMaxSize(),
           horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-          Button(
-            onClick = {
-              val firebaseAuth = Firebase.auth
-              firebaseAuth.createUserWithEmailAndPassword(
-                _emailTextFieldValue.value.text,
-                _passwordTextFieldValue.value.text
-              )
-                .addOnCompleteListener {
-                  if (it.isSuccessful) {
-                    val user = it.result.user
-                    textResult.value = "Utilisateur créé avec succès"
-                    val db = Firebase.firestore
-                    val userTosave = hashMapOf(
-                      "nom" to NomTextFieldValue.value.text,
-                      "prenom" to PrenomTextFieldValue.value.text,
-                      "sexe" to if (_sexeM.value) "M" else "F",
-                      "email" to _emailTextFieldValue.value.text,
-                      "password" to _passwordTextFieldValue.value.text,
-                    )
-                    if (user != null) {
-                      db.collection("users").document(user.uid).set(userTosave)
-                        .addOnSuccessListener { documentReference ->
-                          println("DocumentSnapshot added with ID: ${documentReference}")
-                        }
-                        .addOnFailureListener { e ->
-                          println("Error adding document: $e")
-                        }
+          Row() {
+            Button(
+              modifier = Modifier.padding(end= 10.dp),
+              onClick = {
+                val firebaseAuth = Firebase.auth
+                firebaseAuth.createUserWithEmailAndPassword(
+                  _emailTextFieldValue.value.text,
+                  _passwordTextFieldValue.value.text
+                )
+                  .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                      val user = it.result.user
+                      textResult.value = "Utilisateur créé avec succès"
+                      val db = Firebase.firestore
+                      val userTosave = hashMapOf(
+                        "nom" to NomTextFieldValue.value.text,
+                        "prenom" to PrenomTextFieldValue.value.text,
+                        "sexe" to if (_sexeM.value) "M" else "F",
+                        "email" to _emailTextFieldValue.value.text,
+                        "password" to _passwordTextFieldValue.value.text,
+                      )
+
+                      navController.navigate("home")
+
+                      if (user != null) {
+                        db.collection("users").document(user.uid).set(userTosave)
+                          .addOnSuccessListener { documentReference ->
+                            println("DocumentSnapshot added with ID: ${documentReference}")
+                          }
+                          .addOnFailureListener { e ->
+                            println("Error adding document: $e")
+                          }
+                      }
                     }
+                  }.addOnFailureListener {
+                    println("Error: $it")
+                    textResult.value = "Erreur: $it"
                   }
-                }.addOnFailureListener {
-                  println("Error: $it")
-                  textResult.value = "Erreur: $it"
-                }
-            }) {
-            Text(text = "Enregistrer")
+              }) {
+              Text(text = "Enregistrer")
+            }
+            Button(onClick = { navController.navigate("SignIn") }) {
+              Text(text = "J'ai déjà un compte")
+            }
           }
+
           Text(text = textResult.value, color = Color.White, fontWeight = FontWeight.Bold,)
         }
       }

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.firstapp.ui.screen.Library
 import com.example.firstapp.ui.screen.Home
 import com.example.firstapp.ui.screen.Search
+import com.example.firstapp.ui.screen.SignIn
 import com.example.firstapp.ui.screen.SignUp
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
         }
         composable("signUp") {
           SignUp(navController = navController)
+        }
+        composable("signIn") {
+          SignIn(navController = navController)
         }
       }
     }
