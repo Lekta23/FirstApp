@@ -166,7 +166,7 @@ fun SignUp(navController: NavController) {
                         "password" to _passwordTextFieldValue.value.text,
                       )
 
-                      navController.navigate("home")
+                      navController.navigate("signIn")
 
                       if (user != null) {
                         db.collection("users").document(user.uid).set(userTosave)

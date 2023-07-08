@@ -136,7 +136,7 @@ fun Library(navController: NavController) {
         LazyRow() {
           items(listChips) { item ->
             InputChip(
-              label = { Text(text = item, color = Color.LightGray) },
+              label = { Text(text = item, color = Color.DarkGray) },
               onClick = {},
               modifier = Modifier
                 .padding(4.dp),
